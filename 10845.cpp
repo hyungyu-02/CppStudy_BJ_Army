@@ -16,7 +16,7 @@ void push_(int num){
 }
 void pop_(){
 	if(point != 0){
-		cout<<queue[point-1]<<endl;
+		cout<<queue[0]<<endl;
 		for(int i = 0; i < point-1; i++){
 			queue[i] = queue[i+1];
 		}
@@ -36,7 +36,16 @@ void empty_(){
 		cout<<1<<endl;
 	return;
 }
-void top_(){
+void front_(){
+	if(!point){
+		cout<<-1<<endl;
+	}
+	else{
+		cout<<queue[0]<<endl;
+	}
+	return;
+}
+void back_(){
 	if(!point){
 		cout<<-1<<endl;
 	}
@@ -65,8 +74,11 @@ int main(){
 		else if(!strcmp(c,"empty")){
 			empty_();
 		}
+		else if(!strcmp(c,"front")){
+			front_();
+		}
 		else{
-			top_();
+			back_();
 		}
 	}
 	
