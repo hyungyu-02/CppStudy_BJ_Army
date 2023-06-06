@@ -4,8 +4,6 @@
 using namespace std;
 
 int n, m;
-//int ladder[15][2];
-//int snake[15][2];
 int board[101];
 queue<pair<int,int>> q; //현재위치, 주사위 굴린 횟수
 
