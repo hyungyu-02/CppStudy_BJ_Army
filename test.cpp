@@ -8,9 +8,14 @@ using namespace std;
 int main(){
 	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 	
-	if(-1){
-		cout<<"음수또한 트루임"<<endl;
-	}
+	//string str = "55";
+	char c = '5';
+	int a = c-48;
+	cout<<a;
+	
+	// if(-1){
+	// 	cout<<"음수또한 트루임"<<endl;
+	// }
 	
 	// vector<pair<int,int>> v;
 	
