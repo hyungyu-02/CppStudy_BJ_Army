@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
@@ -12,28 +13,22 @@ int dC[4] = {-1,1,0,0};
 
 void dfs(int r, int c, int score, int lev){
     if(lev >= 4){
-		// if(score > maxRet){
-		// 	maxRet = score;
-		// 	cout<<" -- ";
-		// 	cout<<"dfs changed : "<<r<<" "<<c<<endl;
-		// }
         maxRet = max(maxRet, score);
-		
+		if(score == 20){
+			cout<<"\n ** find 20!! ** "<<endl;
+		}
         return;
     }
     
     for(int i = 0; i < 4; i++){
-        int nR = r + dR[i];
-        int nC = c + dC[i];
-        if(nR >= 0 && nR < n && nC >= 0 && nC < m && !visited[nR][nC]){
+		int nR = r + dR[i];
+		int nC = c + dC[i];
+		if(nR >= 0 && nR < n && nC >= 0 && nC < m && !visited[nR][nC]){
 			visited[nR][nC] = true;
-			
 			dfs(nR, nC, score+board[nR][nC], lev+1);
-			
 			visited[nR][nC] = false;
 		}
     }
-	
     return;
 }
 
@@ -83,6 +78,7 @@ void Tshape(){
 }
 
 int main(){
+	memset(visited, false, sizeof(visited));
     cin>>n>>m;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
@@ -90,23 +86,23 @@ int main(){
         }
     }
 	// for(int i = 0; i < n; i++){
-	// 	for(int j = 0; j < m; j++){
-	// 		cout<<board[i][j]<<" ";
-	// 	}
+	// for(int j = 0; j < m; j++){
+	// cout<<board[i][j]<<" ";
+	// }
 	// 	cout<<endl;
 	// }
 
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < m; j++){
 			visited[i][j] = true;
-            dfs(i, j, board[i][j], 1);
+			dfs(i, j, board[i][j], 1);
 			visited[i][j] = false;
-        }
-    }
+		}
+	}
 	
 	Tshape();
 
-    cout<<maxRet;
+	cout<<maxRet;
 	
     return 0;
 }
