@@ -14,22 +14,40 @@ int n;
 int board[20][20];
 int maxBlock = 0; 
 
-void moveBlock(int lev, int bo[][20]){
-	if(lev >= 5){
-		for(int i = 0; i < n; i++){
-			for(int j = 0; j < n; j++){
-				maxBlock = max(maxBlock, bo[i][j]);
-			}
+void maxCheck(int bo[][20]){
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++){
+			maxBlock = max(maxBlock, bo[i][j]);
 		}
 	}
-	bool changed;
+	return;
+}
+
+void moveBlock(int lev, int bo[][20]){
+	cout<<"\n ********************** \n now lev : "<<lev<<"\n";
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < n; j++){
+			cout<<" "<<bo[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<"\n ********************** \n";
+	
+	if(lev >= 5){
+		maxCheck(bo);
+		return;
+	}
+	bool changed = false;
+	int temp[20];
+	int cnt = 0;
 	
 	//left
 	int boN[20][20];
+	memset(boN, 0, sizeof(boN));
 	copy(&bo[0][0], &bo[0][0] + 400, &boN[0][0]);
 	for(int i = 0; i < n; i++){
-		int temp[20];
-		int cnt = 0;
+		fill_n(temp, 20, 0);
+		cnt = 0;
 		for(int j = 0; j < n; j++){
 			if(boN[i][j]){
 				temp[cnt++] = boN[i][j];
@@ -44,7 +62,7 @@ void moveBlock(int lev, int bo[][20]){
 			}
 		}
 		copy(temp, temp+20, boN[i]);
-		memset(temp, 0, 20*sizeof(int));
+		fill_n(temp, 20, 0);
 		
 		cnt = 0;
 		for(int j = 0; j < n; j++){
@@ -54,7 +72,6 @@ void moveBlock(int lev, int bo[][20]){
 		}
 		copy(temp, temp+20, boN[i]);
 	}
-	
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j < n; j++){
 			if(bo[i][j] != boN[i][j]){
@@ -67,6 +84,8 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	if(changed)
 		moveBlock(lev+1, boN);
+	else
+		maxCheck(bo);
 	changed = false;
 	
 	//right
@@ -75,8 +94,8 @@ void moveBlock(int lev, int bo[][20]){
 		reverse(boN[i], boN[i] + n);
 	}
 	for(int i = 0; i < n; i++){
-		int temp[20];
-		int cnt = 0;
+		fill_n(temp, 20, 0);
+		cnt = 0;
 		for(int j = 0; j < n; j++){
 			if(boN[i][j]){
 				temp[cnt++] = boN[i][j];
@@ -91,7 +110,7 @@ void moveBlock(int lev, int bo[][20]){
 			}
 		}
 		copy(temp, temp+20, boN[i]);
-		memset(temp, 0, 20*sizeof(int));
+		fill_n(temp, 20, 0);
 		
 		cnt = 0;
 		for(int j = 0; j < n; j++){
@@ -117,13 +136,15 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	if(changed)
 		moveBlock(lev+1, boN);
+	else
+		maxCheck(bo);
 	changed = false;
 	
 	//up
 	copy(&bo[0][0], &bo[0][0] + 400, &boN[0][0]);
 	for(int j = 0; j < n; j++){
-		int temp[20];
-		int cnt = 0;
+		fill_n(temp, 20, 0);
+		cnt = 0;
 		for(int i = 0; i < n; i++){
 			if(boN[i][j]){
 				temp[cnt++] = boN[i][j];
@@ -139,7 +160,7 @@ void moveBlock(int lev, int bo[][20]){
 		for(int i = 0; i < n; i++){
 			boN[i][j] = temp[i];
 		}
-		memset(temp, 0, 20*sizeof(int));
+		fill_n(temp, 20, 0);
 		cnt = 0;
 		for(int i = 0; i < n; i++){
 			if(boN[i][j]){
@@ -163,6 +184,8 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	if(changed)
 		moveBlock(lev+1, boN);
+	else
+		maxCheck(bo);
 	changed = false;
 	
 	//down
@@ -173,8 +196,8 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	
 	for(int j = 0; j < n; j++){
-		int temp[20];
-		int cnt = 0;
+		fill_n(temp, 20, 0);
+		cnt = 0;
 		for(int i = 0; i < n; i++){
 			if(boN[i][j]){
 				temp[cnt++] = boN[i][j];
@@ -190,7 +213,7 @@ void moveBlock(int lev, int bo[][20]){
 		for(int i = 0; i < n; i++){
 			boN[i][j] = temp[i];
 		}
-		memset(temp, 0, 20*sizeof(int));
+		fill_n(temp, 20, 0);
 		cnt = 0;
 		for(int i = 0; i < n; i++){
 			if(boN[i][j]){
@@ -203,6 +226,7 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	
 	int temparr[20][20];
+	memset(temparr, 0, sizeof(temparr));
 	copy(&boN[0][0], &boN[0][0] + 400, &temparr[0][0]);
 	
 	for(int i = 0; i < n; i++){
@@ -223,11 +247,14 @@ void moveBlock(int lev, int bo[][20]){
 	}
 	if(changed)
 		moveBlock(lev+1, boN);
+	else
+		maxCheck(bo);
 	
 	return;
 }
 
 int main(){
+	memset(board, 0, sizeof(board));
 	cin>>n;
 	
 	for(int i = 0; i < n; i++){
@@ -237,6 +264,8 @@ int main(){
 	}
 	
 	moveBlock(0, board);
+	
+	cout<<maxBlock;
 	
 	return 0;
 }

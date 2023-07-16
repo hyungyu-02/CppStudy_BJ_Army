@@ -6,11 +6,28 @@
 
 using namespace std;
 
+void testFunc(int arr[][10]){
+	for(int i = 0; i < 10; i++){
+		for(int j = 0; j < 10; j++){
+			cout<<arr[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+}
+
 int main(){
 	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	int arr[10][10];
+	for(int i = 0; i < 10; i++){
+		for(int j = 0; j < 10; j++){
+			arr[i][j] = i+j;
+		}
+	}
+	testFunc(arr);
 	
 	
-	if(true) cout<<1; cout<<2;
+	
+	//if(true) cout<<1; cout<<2;
 	
 	// int arr[10][10];
 	// memset(arr, -1, sizeof(arr));
