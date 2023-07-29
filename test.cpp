@@ -17,13 +17,24 @@ void testFunc(int arr[][10]){
 
 int main(){
 	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	int arr[10][10];
-	for(int i = 0; i < 10; i++){
-		for(int j = 0; j < 10; j++){
-			arr[i][j] = i+j;
-		}
-	}
-	testFunc(arr);
+	
+	vector<pair<int,int>> dp;
+	
+	dp.push_back({1,1});
+	
+	cout<<dp[0].first<<endl;
+	
+	
+	
+	
+	
+	// int arr[10][10];
+	// for(int i = 0; i < 10; i++){
+	// 	for(int j = 0; j < 10; j++){
+	// 		arr[i][j] = i+j;
+	// 	}
+	// }
+	// testFunc(arr);
 	
 	
 	
