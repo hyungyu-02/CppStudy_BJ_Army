@@ -18,14 +18,15 @@ void testFunc(int arr[][10]){
 int main(){
 	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 	
-	vector<pair<int,int>> dp;
+	cout<<" \" \n";
 	
-	dp.push_back({1,1});
+	// vector<int> v;
 	
-	cout<<dp[0].first<<endl;
+	// v.push_back(1);
+	// v.push_back(2);
+	// v.erase(v.begin());
 	
-	
-	
+	// cout<<v[0]<<endl;
 	
 	
 	// int arr[10][10];

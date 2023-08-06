@@ -5,22 +5,20 @@ using namespace std;
 
 int n;
 int arr[100000];
-int maxVal = -1000;
-int temp[100000];
+int maxVal;
+int dp[100000];
 
 int main(){
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 	cin>>n;
-	for(int i = 0; i < n; i++){
-		cin>>arr[i];
-		temp[i] = arr[i];
-		maxVal = max(maxVal, arr[i]);
-	}
+	cin>>arr[0];
+	dp[0] = arr[0];
+	maxVal = arr[0];
 	
-	for(int l = 2; l <= n; l++){
-		for(int i = 0; i+l-1 < n; i++){
-			temp[i] = temp[i] + arr[i+l-1];
-			maxVal = max(maxVal, temp[i]);
-		}
+	for(int i = 1; i < n; i++){
+		cin>>arr[i];
+		dp[i] = max(dp[i-1]+arr[i], arr[i]);
+		maxVal = max(maxVal, dp[i]);
 	}
 	
 	cout<<maxVal;
